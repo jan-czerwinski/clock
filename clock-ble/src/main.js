@@ -1,8 +1,8 @@
 const Clock = require("./clock");
 const clock = new Clock();
 
-clock.on("switchChanged", function(switchData) {
-  console.log("from event: ", switchData);
-});
+const dataHandler = require("./data-handler");
+dataHandler(clock);
+
 const serviceStart = require("./service");
 serviceStart(clock);

@@ -5,12 +5,12 @@ class Clock extends EventEmmiter {
   constructor() {
     super();
     this.switch = true;
-    this.brigtness = {
+    this.brightness = {
       day: 255,
       nightMode: true,
       night: 150,
-      startTime: "22:00",
-      endTime: "06:00"
+      startTime: "2200",
+      endTime: "0600"
     };
     this.color = {
       r: 50,
@@ -20,6 +20,12 @@ class Clock extends EventEmmiter {
   }
   switchChanged() {
     this.emit("switchChanged", this.switch);
+  }
+  brightnessChanged() {
+    this.emit("brightnessChanged", this.brightness);
+  }
+  colorChanged() {
+    this.emit("colorChanged", this.color);
   }
 }
 
