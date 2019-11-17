@@ -11,14 +11,12 @@ const parseBrightness = data => {
 };
 
 const bufferBrightness = obj => {
-  console.log(obj);
   const str =
     obj.day.toString() +
     (obj.nightMode ? "1" : "0") +
     obj.night.toString() +
     obj.startTime +
     obj.endTime;
-  console.log(str);
   return Buffer.from(str);
 };
 
@@ -30,10 +28,9 @@ class Brightness extends bleno.Characteristic {
       value: null
     });
     this.Clock = Clock;
-    this._value = bufferBrightness(this.Clock.brightness);
+    this._value = bufferBrightness(this.Clock.data.brightness);
   }
   onReadRequest(offset, callback) {
-    console.log("brightness read request: " + this._value.toString().length);
     callback(this.RESULT_SUCCESS, this._value);
   }
   onWriteRequest(data, offset, withoutResponse, callback) {
@@ -43,8 +40,8 @@ class Brightness extends bleno.Characteristic {
       callback(this.RESULT_INVALID_ATTRIBUTE_LENGTH);
     } else {
       this._value = data;
-      this.Clock.brightness = parseBrightness(data);
-      this.Clock.brightnessChanged();
+      this.Clock.data.brightness = parseBrightness(data);
+      this.Clock.dataChanged();
       callback(this.RESULT_SUCCESS);
     }
   }

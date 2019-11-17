@@ -10,8 +10,7 @@ class Switch extends bleno.Characteristic {
     this.Clock = Clock;
   }
   onReadRequest(offset, callback) {
-    console.log("switch read request: " + this.Clock.switch);
-    callback(this.RESULT_SUCCESS, this.Clock.switch); //TODO
+    callback(this.RESULT_SUCCESS, this.Clock.data.switch);
   }
   onWriteRequest(data, offset, withoutResponse, callback) {
     if (offset) {
@@ -19,8 +18,8 @@ class Switch extends bleno.Characteristic {
     } else if (data.length !== 1) {
       callback(this.RESULT_INVALID_ATTRIBUTE_LENGTH);
     } else {
-      this.Clock.switch = 1 === data.readUInt8(0);
-      this.Clock.switchChanged();
+      this.Clock.data.switch = 1 === data.readUInt8(0);
+      this.Clock.dataChanged();
       callback(this.RESULT_SUCCESS);
     }
   }

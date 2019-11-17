@@ -4,28 +4,24 @@ const EventEmmiter = require("events");
 class Clock extends EventEmmiter {
   constructor() {
     super();
-    this.switch = true;
-    this.brightness = {
-      day: 255,
-      nightMode: true,
-      night: 150,
-      startTime: "2200",
-      endTime: "0600"
+    this.data = {
+      switch: true,
+      brightness: {
+        day: 255,
+        nightMode: true,
+        night: 150,
+        startTime: "2200",
+        endTime: "0600"
+      },
+      color: {
+        r: 50,
+        g: 168,
+        b: 141
+      }
     };
-    this.color = {
-      r: 50,
-      g: 168,
-      b: 141
-    };
   }
-  switchChanged() {
-    this.emit("switchChanged", this.switch);
-  }
-  brightnessChanged() {
-    this.emit("brightnessChanged", this.brightness);
-  }
-  colorChanged() {
-    this.emit("colorChanged", this.color);
+  dataChanged() {
+    this.emit("clockChanged", this.data);
   }
 }
 

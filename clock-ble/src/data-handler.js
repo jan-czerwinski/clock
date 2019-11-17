@@ -1,12 +1,10 @@
-function dataHandler(clock) {
-  clock.on("switchChanged", function(switchData) {
-    console.log("from event: ", switchData);
-  });
-  clock.on("brightnessChanged", function(brightnessData) {
-    console.log("from event: ", brightnessData);
-  });
-  clock.on("colorChanged", function(colorData) {
-    console.log("from event: ", colorData);
+const axios = require("axios");
+
+const url = "http://127.0.0.1:5000/hello";
+
+function dataHandler(Clock) {
+  Clock.on("clockChanged", clock => {
+    axios.post(url, clock); //add error handling
   });
 }
 
