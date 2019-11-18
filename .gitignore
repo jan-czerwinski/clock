@@ -62,3 +62,6 @@ typings/
 
 # shell scripts for dev
 clock-logic/run.sh
+
+#backup file in case i accidentaly delete settings
+clock-settings-backup.json

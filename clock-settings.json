@@ -1,1 +1,11 @@
-{"switch": true, "brightness": {"day": 245, "nightMode": true, "night": 100, "startTime": "2200", "endTime": "0500"}, "color": {"r": 50, "g": 168, "b": 141}}
+{
+  "switch": true,
+  "brightness": {
+    "day": 255,
+    "nightMode": true,
+    "night": 150,
+    "startTime": "2200",
+    "endTime": "0600"
+  },
+  "color": { "r": 100, "g": 150, "b": 200 }
+}

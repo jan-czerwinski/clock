@@ -3,6 +3,7 @@ const ServiceUuid = "3cefb000-82c1-4929-8021-6d793424227c";
 
 const SwitchCharacteristic = require("./characteristics/switch");
 const BrightnessCharacteristic = require("./characteristics/brightness");
+const ColorCharacteristic = require("./characteristics/color");
 
 function serviceStart(clock) {
   bleno.on("stateChange", function(state) {
@@ -23,11 +24,12 @@ function serviceStart(clock) {
     } else {
       const Switch = new SwitchCharacteristic(clock);
       const Brightness = new BrightnessCharacteristic(clock);
+      const Color = new ColorCharacteristic(clock);
 
       bleno.setServices([
         new bleno.PrimaryService({
           uuid: ServiceUuid,
-          characteristics: [Switch, Brightness]
+          characteristics: [Switch, Brightness, Color]
         })
       ]);
       console.log("Service Started");
