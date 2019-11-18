@@ -1,8 +1,8 @@
 const Clock = require("./clock");
 const clock = new Clock();
 
-const dataHandler = require("./data-handler");
-dataHandler(clock);
+const dataClient = require("./data-client");
+dataClient(clock);
 
 const serviceStart = require("./service");
 serviceStart(clock);

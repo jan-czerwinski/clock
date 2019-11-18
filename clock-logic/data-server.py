@@ -3,10 +3,8 @@ import json
 app = Flask(__name__)
 
 
-@app.route('/hello', methods=['GET', 'POST'])
+@app.route('/clock', methods=['POST'])
 def hello():
-
-    # POST request
     if request.method == 'POST':
         print('Incoming..')
         data = request.get_json()
@@ -14,11 +12,6 @@ def hello():
             json.dump(data, f)
         print(data)
         return 'OK', 200
-
-    # GET request
-    else:
-        message = {'greeting': 'siemanko'}
-        return jsonify(message)  # serialize and use JSON headers
 
 
 @app.route('/test')

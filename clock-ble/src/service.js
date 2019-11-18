@@ -10,7 +10,7 @@ function serviceStart(clock) {
     console.log("state: ", state);
 
     if (state === "poweredOn") {
-      bleno.startAdvertising("echo", [ServiceUuid]);
+      bleno.startAdvertising("Zegar", [ServiceUuid]);
       console.log("Started Advertising");
     } else {
       bleno.stopAdvertising();
