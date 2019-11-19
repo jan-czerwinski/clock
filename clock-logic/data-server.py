@@ -1,5 +1,8 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, request
 import json
+from led import Led
+import threading
+
 app = Flask(__name__)
 
 
@@ -8,6 +11,7 @@ def clock_api():
     if request.method == 'POST':
         print('Incoming..')
         data = request.get_json()
+        Led.clock = data
         with open('../clock-settings.json', 'w') as f:
             json.dump(data, f)
         print(data)
@@ -15,4 +19,8 @@ def clock_api():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    with open('../clock-settings.json') as f:
+        Led = Led(json.loads(f.read()))
+    ledLoop = threading.Thread(target=Led.inf_loop)
+    ledLoop.start()
+    app.run()

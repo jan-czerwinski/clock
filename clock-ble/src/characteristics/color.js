@@ -26,11 +26,10 @@ class Color extends bleno.Characteristic {
   onWriteRequest(data, offset, withoutResponse, callback) {
     if (offset) {
       callback(this.RESULT_ATTR_NOT_LONG);
-    } else if (data.length === 9) {
+    } else if (data.length !== 4) {
       callback(this.RESULT_INVALID_ATTRIBUTE_LENGTH);
     } else {
       this._value = data;
-      console.log(parseColor(data));
       this.Clock.data.color = parseColor(data);
       this.Clock.dataChanged();
       callback(this.RESULT_SUCCESS);
