@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 
 @app.route('/clock', methods=['POST'])
-def hello():
+def clock_api():
     if request.method == 'POST':
         print('Incoming..')
         data = request.get_json()
@@ -14,7 +14,5 @@ def hello():
         return 'OK', 200
 
 
-@app.route('/test')
-def test_page():
-    # look inside `templates` and serve `index.html`
-    return render_template('index.html')
+if __name__ == '__main__':
+    app.run(debug=True)
