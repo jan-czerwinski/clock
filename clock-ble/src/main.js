@@ -4,5 +4,5 @@ const clock = new Clock();
 const dataClient = require("./data-client");
 dataClient(clock);
 
-const serviceStart = require("./service");
-serviceStart(clock);
+const peripheralStart = require("./peripheral-start");
+peripheralStart(clock);

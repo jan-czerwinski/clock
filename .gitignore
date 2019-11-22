@@ -203,3 +203,5 @@ clock-logic/run.sh
 #backup file in case i accidentaly delete settings
 clock-settings-backup.json
 
+#old code for the word clock I wrote
+arduino_reference.ino

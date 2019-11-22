@@ -1,9 +1,9 @@
 const bleno = require("bleno");
 const ServiceUuid = "3cefb000-82c1-4929-8021-6d793424227c";
 
-const SwitchCharacteristic = require("./characteristics/switch");
-const BrightnessCharacteristic = require("./characteristics/brightness");
-const ColorCharacteristic = require("./characteristics/color");
+const SwitchCharacteristic = require("./clock-service/characteristics/switch");
+const BrightnessCharacteristic = require("./clock-service/characteristics/brightness");
+const ColorCharacteristic = require("./clock-service/characteristics/color");
 
 function serviceStart(clock) {
   bleno.on("stateChange", function(state) {
