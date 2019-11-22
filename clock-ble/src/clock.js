@@ -9,6 +9,9 @@ class Clock extends EventEmmiter {
   dataChanged() {
     this.emit("clockChanged", this.data);
   }
+  timeChanged(time) {
+    this.emit("timeChanged", time);
+  }
 }
 
 module.exports = Clock;

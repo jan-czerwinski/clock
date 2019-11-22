@@ -4,6 +4,7 @@ const clockUuid = "3cefb000-82c1-4929-8021-6d793424227c";
 const SwitchCharacteristic = require("./characteristics/switch");
 const BrightnessCharacteristic = require("./characteristics/brightness");
 const ColorCharacteristic = require("./characteristics/color");
+const TimeCharacteristic = require("./characteristics/time");
 
 class ClockService extends bleno.PrimaryService {
   constructor(clock) {
@@ -12,7 +13,8 @@ class ClockService extends bleno.PrimaryService {
       characteristics: [
         new SwitchCharacteristic(clock),
         new BrightnessCharacteristic(clock),
-        new ColorCharacteristic(clock)
+        new ColorCharacteristic(clock),
+        new TimeCharacteristic(clock)
       ]
     });
   }

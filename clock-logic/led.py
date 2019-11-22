@@ -10,5 +10,5 @@ class Led:
     def inf_loop(self):
         time.clock()
         while True:
-            print(time.time() - self.start, self.clock)
+            # print(time.time() - self.start, self.clock)
             time.sleep(2)
