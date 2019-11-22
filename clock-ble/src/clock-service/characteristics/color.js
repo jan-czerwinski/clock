@@ -13,7 +13,7 @@ const parseColor = data => {
 class Color extends bleno.Characteristic {
   constructor(Clock) {
     super({
-      uuid: "0003",
+      uuid: "3cefb003-82c1-4929-8021-6d793424227c",
       properties: ["read", "write"],
       value: null
     });

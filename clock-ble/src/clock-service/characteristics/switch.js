@@ -3,7 +3,7 @@ const bleno = require("bleno");
 class Switch extends bleno.Characteristic {
   constructor(Clock) {
     super({
-      uuid: "0001",
+      uuid: "3cefb001-82c1-4929-8021-6d793424227c",
       properties: ["read", "write"],
       value: null
     });

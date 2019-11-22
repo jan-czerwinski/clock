@@ -23,7 +23,7 @@ const bufferBrightness = obj => {
 class Brightness extends bleno.Characteristic {
   constructor(Clock) {
     super({
-      uuid: "0002",
+      uuid: "3cefb002-82c1-4929-8021-6d793424227c",
       properties: ["read", "write"],
       value: null
     });
