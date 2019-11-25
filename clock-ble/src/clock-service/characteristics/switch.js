@@ -4,13 +4,12 @@ class Switch extends bleno.Characteristic {
   constructor(Clock) {
     super({
       uuid: "3cefb001-82c1-4929-8021-6d793424227c",
-      properties: ["read", "write"],
-      value: null
+      properties: ["read", "write"]
     });
     this.Clock = Clock;
   }
   onReadRequest(offset, callback) {
-    callback(this.RESULT_SUCCESS, this.Clock.data.switch);
+    callback(this.RESULT_SUCCESS, Buffer.from([this.Clock.data.switch]));
   }
   onWriteRequest(data, offset, withoutResponse, callback) {
     if (offset) {
