@@ -9,4 +9,6 @@ do
   kill $line
 done < "$input"
 
-echo Killed clock
+rm $input
+
+echo Stopped clock

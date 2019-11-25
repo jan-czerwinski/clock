@@ -1,9 +1,16 @@
-import os
+import subprocess
 import datetime
 
 year = datetime.date.today().year
 
 
 def set_time(time):
-    os.system(f'date +%Y%m%d -s {year}{time["month"]}{time["day"]}')
-    os.system(f'date +%T -s {time["hour"]}:{time["minute"]}:00')
+    pass
+    subprocess.call(['sudo', 'date', '+%Y%m%d', '-s',
+                     f'{year}{time["month"]}{time["day"]}'])
+    subprocess.call(['sudo', 'date', '+%T', '-s',
+                     f'{time["hour"]}:{time["minute"]}:00'])
+
+
+if __name__ == '__main__':
+    set_time({'month': '05', 'day': '10'})
