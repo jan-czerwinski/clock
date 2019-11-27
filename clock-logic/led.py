@@ -36,10 +36,13 @@ class Led:
             auto_write=False,
             pixel_order=neopixel.RGB)
 
-    def update(self):
+    def update_time(self):
+        pass
+
+    def update_settings(self):
         self.is_updating = True
         if not self.clock["switch"]:
-            return
+            pixels.fill((0, 0, 0))
 
         pixels = self.pixels
         brightness = self.clock["brightness"]
@@ -51,7 +54,7 @@ class Led:
         else:
             pixels.brightness = parse_brightness(brightness["day"])
 
-        #test function
+        # test function
         for i in range(len(pixels)):
             pixels.fill((0, 0, 0))
             pixels[i] = parse_color(color)
@@ -61,11 +64,10 @@ class Led:
         pixels.show()
         self.is_updating = False
 
-        
-
     def main_loop(self):
         if not self.is_updating:
-            self.update()
+            self.update_settings()
+            self.update_time()
         threading.Timer(2, self.main_loop).start()
 
 
