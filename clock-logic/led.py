@@ -37,6 +37,7 @@ class Led:
             pixel_order=neopixel.RGB)
 
     def update(self):
+        self.is_updating = True
         if not self.clock["switch"]:
             return
 
@@ -58,10 +59,13 @@ class Led:
             time.sleep(0.2)
         pixels.fill((0, 0, 0))
         pixels.show()
+        self.is_updating = False
+
         
 
     def main_loop(self):
-        self.update()
+        if not self.is_updating:
+            self.update()
         threading.Timer(2, self.main_loop).start()
 
 
