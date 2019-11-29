@@ -15,9 +15,9 @@ def clock():
     if request.method == 'POST':
         data = request.get_json()
         Led.clock = data
+        Led.update()
         with open('../clock.json', 'w') as f:
             json.dump(data, f)
-
         return 'OK', 200
 
 
@@ -26,13 +26,17 @@ def time():
     if request.method == 'POST':
         data = request.get_json()
         set_time(data)
-        print(f'Data from ble: {data}')
+        Led.update()
         return 'OK', 200
 
 
 if __name__ == '__main__':
     with open('../clock.json') as f:
         Led = Led(json.loads(f.read()))
-    LedLoop = threading.Thread(target=Led.inf_loop)
-    LedLoop.start()
-    App.run()
+    try:
+        LedLoop = threading.Thread(target=Led.main_loop)
+        LedLoop.start()
+        print("Started led loop")
+        App.run()
+    except KeyboardInterrupt:
+        Led.pixels.deinit()

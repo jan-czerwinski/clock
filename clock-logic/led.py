@@ -1,79 +1,71 @@
+import threading
 import time
+
 import board
 import neopixel
-import threading
-from words import *
-import datetime
+from elevate import elevate
 
-NUMBER_OF_LEDS = 9
+from led_functions import *
+
+
+NUMBER_OF_LEDS = 100
 RPI_PIN = board.D18
-
-
-def parse_brightness(brightness):
-    return brightness/255
-
-
-def parse_color(color):
-    return (color["r"], color["g"], color["b"])
-
-
-def current_time_in_range(start, end):
-    now = datetime.datetime.now().time()
-    start = datetime.time(int(start[:2]), int(start[2:4]))
-    end = datetime.time(int(end[:2]), int(end[2:4]))
-    if start <= end:
-        return start <= now <= end
-    else:
-        return start <= now or now <= end
+LOOP_INTERVAL = 10  # in seconds
 
 
 class Led:
     def __init__(self, clock):
+        elevate()
         self.clock = clock
         self.pixels = neopixel.NeoPixel(
             RPI_PIN,
             NUMBER_OF_LEDS,
-            auto_write=False,
-            pixel_order=neopixel.RGB)
+            auto_write=False)
+        self.is_updating = False
 
-    def update_time(self):
-        pass
-
-    def update_settings(self):
+    def update(self):
+        print()
+        print("UPDATING")
         self.is_updating = True
-        if not self.clock["switch"]:
-            pixels.fill((0, 0, 0))
 
         pixels = self.pixels
-        brightness = self.clock["brightness"]
-        color = self.clock["color"]
+        pixels.fill((0, 0, 0))
 
-        if brightness["nightMode"] and \
-                current_time_in_range(brightness["startTime"], brightness["endTime"]):
+        # switch clock on/off
+        if not self.clock["switch"]:
+            pixels.fill((0, 0, 0))
+            pixels.show()
+            return
+
+        # set brightness and determine if in nightmode
+        brightness = self.clock["brightness"]
+        print(brightness)
+        if brightness["nightMode"] and current_time_in_range(brightness["startTime"], brightness["endTime"]):
             pixels.brightness = parse_brightness(brightness["night"])
         else:
             pixels.brightness = parse_brightness(brightness["day"])
 
-        # test function
-        for i in range(len(pixels)):
-            pixels.fill((0, 0, 0))
-            pixels[i] = parse_color(color)
-            pixels.show()
-            time.sleep(0.2)
+        # set active pixels according to time
         pixels.fill((0, 0, 0))
+        active_pixels = words_from_time()
+        color = parse_color(self.clock["color"])
+        for i in active_pixels:
+            pixels[i] = color
+
         pixels.show()
         self.is_updating = False
 
     def main_loop(self):
-        if not self.is_updating:
-            self.update_settings()
-            self.update_time()
-        threading.Timer(2, self.main_loop).start()
+        while True:
+            if not self.is_updating:
+                self.update()
+            print(self.clock)
+            time.sleep(7)
 
 
 if __name__ == '__main__':
     try:
-        led = Led({"switch": True, "brightness": {"day": 1, "nightMode": True, "night": 100,
+        led = Led({"switch": True, "brightness": {"day": 200, "nightMode": True, "night": 100,
                                                   "startTime": "2200", "endTime": "0400"}, "color": {"r": 255, "g": 255, "b": 255}})
         led.main_loop()
     except KeyboardInterrupt:

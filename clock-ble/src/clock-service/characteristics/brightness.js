@@ -19,7 +19,7 @@ const compressBrightness = obj => {
       obj.startTime +
       obj.endTime
   );
-  buf.writeIntLE(value, 0, 6);
+  buf.writeUIntLE(value, 0, 6);
   return buf;
 };
 

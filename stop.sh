@@ -6,7 +6,7 @@ cd $SCRIPTPATH
 input="./logs/pids"
 while IFS= read -r line
 do
-  kill $line
+  sudo kill $line
 done < "$input"
 
 rm $input
