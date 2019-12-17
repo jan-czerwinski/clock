@@ -3,13 +3,13 @@
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 
 cd $SCRIPTPATH
-[ -f ./logs/pids ] && ./stop.sh
+./stop.sh
 
 cd clock-ble/src
-nohup node main.js > ../../logs/clock-ble.log 2>&1 & echo $! > ../../logs/pids
+nohup node main.js > $SCRIPTPATH/logs/clock-ble.log 2>&1 & echo $! > $SCRIPTPATH/logs/pids
 
 cd $SCRIPTPATH
 cd clock-logic
-nohup python3 main.py > ../logs/clock-logic.log 2>&1 & echo $! >> ../logs/pids
+nohup python3 main.py > $SCRIPTPATH/logs/clock-logic.log 2>&1 & echo $! >> $SCRIPTPATH/logs/pids
 
 echo Clock started, output in $SCRIPTPATH/logs

@@ -13,9 +13,14 @@ const parseColor = data => {
 const compressColor = color => {
   const buf = Buffer.alloc(4);
   const { r, g, b } = color;
-  buf.writeUInt32LE(parseInt(`${r}${g}${b}`));
+  buf.writeUInt32LE(parseInt(`${r}${addZeros(g)}${addZeros(b)}`));
   return buf;
 };
+
+const addZeros = s =>{
+  s = "000"+s;
+  return s.slice(s.length-3);
+}
 
 class Color extends bleno.Characteristic {
   constructor(Clock) {

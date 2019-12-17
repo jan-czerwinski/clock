@@ -9,6 +9,4 @@ do
   sudo kill $line
 done < "$input"
 
-rm $input
-
-echo Stopped clock
+echo Killed or didnt kill previous clock instance

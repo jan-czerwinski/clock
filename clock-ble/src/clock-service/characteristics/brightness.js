@@ -1,5 +1,10 @@
 const bleno = require("bleno");
 
+const addZeros = s =>{
+  s = "000"+s;
+  return s.slice(s.length-3);
+}
+
 const parseBrightness = data => {
   return {
     day: parseInt(data.slice(0, 3).toString()),
@@ -11,16 +16,13 @@ const parseBrightness = data => {
 };
 
 const compressBrightness = obj => {
-  const buf = Buffer.alloc(6);
-  const value = parseInt(
-    obj.day.toString() +
+  const value = 
+      addZeros(obj.day.toString()) +
       (obj.nightMode ? "1" : "0") +
-      obj.night.toString() +
+      addZeros(obj.night.toString()) +
       obj.startTime +
-      obj.endTime
-  );
-  buf.writeUIntLE(value, 0, 6);
-  return buf;
+      obj.endTime;
+  return value;
 };
 
 class Brightness extends bleno.Characteristic {

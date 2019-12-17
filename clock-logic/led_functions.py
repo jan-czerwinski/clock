@@ -1,6 +1,9 @@
 import datetime
 from words import *
 
+def three_two_one():
+    return (HOUR["3"],HOUR["2"],HOUR["1"])
+
 
 def parse_brightness(brightness):
     return brightness/255
