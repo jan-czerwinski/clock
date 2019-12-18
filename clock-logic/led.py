@@ -12,7 +12,6 @@ NUMBER_OF_LEDS = 100
 RPI_PIN = board.D18
 LOOP_INTERVAL = 10  # in seconds
 
-
 class Led:
     def __init__(self, clock):
         elevate()
@@ -63,25 +62,29 @@ class Led:
                 if not self.is_updating: self.main_update()
                 print(self.clock)
                 time.sleep(15)
+            else:
+                time.sleep(0.5)
 
     def snake_loop(self):
         self.snake_start()
         while True:
-            self.playing_snake = self.snake.update()
+            self.playing_snake = self.playing_snake and self.snake.update()
             if not self.playing_snake:
                 self.snake_end()
-                break
+                return
+            self.snake_update()
             time.sleep(self.snake.get_delay())
     
     def snake_update(self):
         pixels = self.pixels
         pixels.fill((0, 0, 0))
         for i in self.snake.get_real_coords():
-            pixels[i] = (0,255,150) #green snake
+            pixels[i] = (0,255,60) #green snake
         pixels[self.snake.get_real_food()] = (255,0,0) #red apple
         pixels.show()
 
     def snake_start(self):
+        self.playing_snake = True
         pixels = self.pixels
         while self.is_updating:
             time.sleep(0.1)
@@ -93,6 +96,7 @@ class Led:
             pixels.show()
             time.sleep(1)
             pixels.fill((0,0,0))
+        pixels.show()
     
     def snake_end(self):
         pass

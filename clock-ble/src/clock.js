@@ -12,6 +12,9 @@ class Clock extends EventEmmiter {
   timeChanged(time) {
     this.emit("timeChanged", time);
   }
+  snakeChanged(snake){
+    this.emit("snakeChanged",snake);
+  }
 }
 
 module.exports = Clock;

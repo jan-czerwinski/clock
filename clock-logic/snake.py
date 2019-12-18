@@ -34,8 +34,10 @@ class Snake:
         return CONVERTER[self.food]
 
     def make_food(self):
-        while self.food in self.coords:
-            self.food = randint(0,99)
+        self.food = randint(0,99)
+
+        # while self.food in self.coords:
+        #     self.food = randint(0,99)
 
     def change_direction(self, turn_right):
         changer = 1 if turn_right else -1
@@ -45,24 +47,25 @@ class Snake:
         head = self.coords[-1]
         direction = DIRECTIONS[self.direction]
         if direction == "up":
-            output = head-10 if head>=10 else 90 + head
-        elif direction == "right":
-            output = head+1 if head%10!=9 else head-9
+            return head-10 if head>=10 else 90 + head
         elif direction == "down":
-            output = head+10 if head>=90 else head-90
+            return head+10 if head<90 else head-90
+        elif direction == "right":
+            return head+1 if head%10!=9 else head-9
         elif direction == "left":
-            output = head-1 if head%10!=0 else head+9
-        return CONVERTER[output]
+            return head-1 if head%10!=0 else head+9
     
     def get_delay(self):
-        return 0.5
+        return 0.8
 
     def update(self):
         next_position = self.next_position()
         if next_position in self.coords:
             return False
-        if next_position != self.food:
-            self.coords.remove(0)
+        
         self.coords.append(next_position)
-        self.make_food()
+        if next_position == self.food:
+            self.make_food()
+        else:
+            self.coords.pop(0)
         return True

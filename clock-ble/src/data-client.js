@@ -22,6 +22,17 @@ function dataClient(Clock) {
       }
     );
   });
+
+  Clock.on("snakeChanged", snake => {
+    console.log("SNAKE----->   ",snake);
+    axios.post(url + "snake", snake).then(
+      response => console.log("to python: ", response.status, response.data),
+      error => {
+        console.log("TO PYTHON ERROR:");
+        console.error(error);
+      }
+    );
+  });
 }
 
 module.exports = dataClient;

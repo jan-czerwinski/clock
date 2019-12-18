@@ -34,15 +34,16 @@ def time():
 def snake():
     if request.method == 'POST':
         data = request.get_json()
-        if data["costamtutajchyba"] == "tutajstart":   #TODO
+        if data["snake"] == 20: #start
             Led.snake = Snake()
-            Led.playing_snake = True
             snakeLoop = threading.Thread(target=Led.snake_loop)
             snakeLoop.start()
-        elif data["czy_skrecam_w_prawo"] == True:
-            Led.snake.change_direction(data["czy_skrecam_w_prawo"] == "costam ")
-        elif data["Czy_wychodzę"] == "czy_wychodze":
-            Led.playing_snake = False
+            print("Started snake loop")
+        elif Led.playing_snake:
+            if data["snake"] == 1 or data["snake"] == 0: #1-> right    0-> left 
+                Led.snake.change_direction(bool(data["snake"]))
+            elif data["snake"] == 40: #stop
+                Led.playing_snake = False
         return 'OK', 200
 
 

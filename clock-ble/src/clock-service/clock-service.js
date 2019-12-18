@@ -5,6 +5,8 @@ const SwitchCharacteristic = require("./characteristics/switch");
 const BrightnessCharacteristic = require("./characteristics/brightness");
 const ColorCharacteristic = require("./characteristics/color");
 const TimeCharacteristic = require("./characteristics/time");
+const SnakeCharacteristic = require("./characteristics/snake");
+
 
 class ClockService extends bleno.PrimaryService {
   constructor(clock) {
@@ -14,7 +16,8 @@ class ClockService extends bleno.PrimaryService {
         new SwitchCharacteristic(clock),
         new BrightnessCharacteristic(clock),
         new ColorCharacteristic(clock),
-        new TimeCharacteristic(clock)
+        new TimeCharacteristic(clock),
+        new SnakeCharacteristic(clock)
       ]
     });
   }
