@@ -70,7 +70,8 @@ class Led:
         while True:
             self.playing_snake = self.playing_snake and self.snake.update()
             if not self.playing_snake:
-                self.snake_end()
+                self.snake = None
+                self.main_update()
                 return
             self.snake_update()
             time.sleep(self.snake.get_delay())
@@ -98,10 +99,6 @@ class Led:
             time.sleep(1)
             pixels.fill((0,0,0))
         pixels.show()
-    
-    def snake_end(self):
-        self.snake = None
-        self.main_update()
     
 if __name__ == '__main__':
     try:
