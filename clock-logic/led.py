@@ -88,6 +88,7 @@ class Led:
         pixels = self.pixels
         while self.is_updating:
             time.sleep(0.1)
+        pixels.brightness = 0.25
         pixels.fill((0, 0, 0))
         pixels.show()
         for word in three_two_one():
@@ -99,7 +100,8 @@ class Led:
         pixels.show()
     
     def snake_end(self):
-        pass
+        self.snake = None
+        self.main_update()
     
 if __name__ == '__main__':
     try:

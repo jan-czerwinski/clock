@@ -20,10 +20,11 @@ DIRECTIONS = {
 }
 
 class Snake:
-    coords=[42,43,44]
-    direction = 1
-    food = randint(0,99)
-
+    def __init__(self):
+        self.coords=[42,43,44]
+        self.direction = 1
+        self.food = randint(0,99)
+    
     def get_real_coords(self):
         output =[]
         for i in self.coords:
@@ -35,9 +36,8 @@ class Snake:
 
     def make_food(self):
         self.food = randint(0,99)
-
-        # while self.food in self.coords:
-        #     self.food = randint(0,99)
+        while self.food in self.coords:
+             self.food = randint(0,99)
 
     def change_direction(self, turn_right):
         changer = 1 if turn_right else -1
@@ -56,7 +56,7 @@ class Snake:
             return head-1 if head%10!=0 else head+9
     
     def get_delay(self):
-        return 0.8
+        return -0.008*len(self.coords) +0.54 #curve made so for len(coords)==5 => 0.5, len(coords)==50 => 0.15
 
     def update(self):
         next_position = self.next_position()
