@@ -23,5 +23,3 @@ Start and stop (for development):
 clock$ ./start.sh
 clock$ ./stop.sh
 ```
-
-It was tested on Rpi 0 w with raspbian buster. I used node 8 because newer versions had compatibility issues with the **[Bleno](https://github.com/noble/bleno)** library.
